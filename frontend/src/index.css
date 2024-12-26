@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* General page layout */
+.page-container {
+  @apply flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800;
+}
+
+/* Headings */
+.page-heading {
+  @apply text-4xl font-bold mb-6 text-gray-700;
+}
+
+/* Buttons */
+.primary-button {
+  @apply bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 shadow-lg;
+}
+
+.danger-button {
+  @apply bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 shadow-md;
+}
+
+/* Input fields */
+.input-field {
+  @apply w-full max-w-sm p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Select fields */
+.select-field {
+  @apply w-full p-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Form container */
+.form-container {
+  @apply flex flex-col items-center space-y-6;
+}
+
+.form-group {
+  @apply w-full max-w-md flex items-center space-x-4;
+}
+
+/* Labels */
+.label {
+  @apply font-medium text-gray-700;
+}
+
+/* Live session container */
+.live-session {
+  @apply bg-black text-white p-6 rounded-lg shadow-lg w-full max-w-3xl;
+}
+
+.song-content {
+  @apply overflow-hidden h-64 text-lg leading-8 bg-gray-800 p-4 rounded;
+}
+
+.participants-list {
+  @apply list-none p-0 mt-6 space-y-2;
+}
+
+.song-artist {
+  @apply text-xl mb-4;
+}
+
+.song-content {
+  @apply overflow-hidden h-64 text-lg leading-8 bg-gray-800 p-4 rounded;
+}
+
+
+.search-results {
+  @apply w-full max-w-2xl mt-6;
+}
+
+.result-item {
+  @apply mb-3 p-3 bg-gray-100 border border-gray-300 rounded-lg shadow hover:bg-gray-200 cursor-pointer;
+}
+
+.result-item strong {
+  @apply font-semibold;
+}
+
+/* Empty state message */
+.empty-state {
+  @apply text-lg text-gray-600 mt-6;
+}
