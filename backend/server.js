@@ -8,12 +8,12 @@ const roomRoutes = require('./routes/roomRoutes')
 const cors = require('cors')
 
 const app = express()
-const PORT = process.env.REACT_APP_API_URL || 3000
+const PORT = 3000
 const server = http.createServer(app)
 
 
 app.use(cors({
-    origin: '*',
+    origin: ["http://localhost:5173", 'https://jam-together-frontend.onrender.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
 }));
