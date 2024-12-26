@@ -10,7 +10,7 @@ const AdminRoomPage = () => {
     const [roomDetails, setRoomDetails] = useState(null)
     const [searchQuery, setSearchQuery] = useState({ name: '', artist: '' })
     const [selectedSong, setSelectedSong] = useState(null)
-    const [isLive, setIsLive] = useState(true)
+    const [isLive, setIsLive] = useState(false)
     const navigate = useNavigate()
     
     
