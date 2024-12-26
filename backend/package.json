@@ -12,7 +12,8 @@
   "dependencies": {
     "express": "^4.21.2",
     "socket.io": "^4.8.1",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "dotenv": "^16.4.7"
   },
   "description": "",
   "devDependencies": {
