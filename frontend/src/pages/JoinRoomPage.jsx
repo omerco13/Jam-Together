@@ -11,7 +11,8 @@ const JoinRoomPage = () => {
 
     useEffect(() => {
         const fetchRooms = async () => {
-            const response = await fetch('http://localhost:3000/api/rooms');
+            const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000'
+            const response = await fetch(`${BASE_URL}/api/rooms`)
             const data = await response.json();
             setRooms(data)
         }
@@ -26,7 +27,7 @@ const JoinRoomPage = () => {
             return;
         }
 
-        const response = await fetch(`http://localhost:3000/api/rooms/${selectedRoom}/join`, {
+        const response = await fetch(`${BASE_URL}/api/rooms/${selectedRoom}/join`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, instrument }),
