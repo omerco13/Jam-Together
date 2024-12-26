@@ -8,7 +8,7 @@ const roomRoutes = require('./routes/roomRoutes')
 const cors = require('cors')
 
 const app = express()
-const PORT = ProcessingInstruction.env.Port || 3000
+const PORT = process.env.PORT || 3000
 const server = http.createServer(app)
 
 app.use(cors({
