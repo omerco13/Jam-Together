@@ -11,7 +11,7 @@ const JoinRoomPage = () => {
 
     useEffect(() => {
         const fetchRooms = async () => {
-            const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000'
+            const BASE_URL = process.env.REACT_APP_API_URL || 'https://jam-together-backend.onrender.com'
             const response = await fetch(`${BASE_URL}/api/rooms`)
             const data = await response.json();
             setRooms(data)
