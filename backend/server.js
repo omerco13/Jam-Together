@@ -8,14 +8,18 @@ const roomRoutes = require('./routes/roomRoutes')
 const cors = require('cors')
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.REACT_APP_API_URL || 3000
 const server = http.createServer(app)
+const allowedOrigins = [
+    'http://localhost:5173',  // Development frontend
+    'https://your-production-frontend-url.com'  // Replace with your production URL
+];
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
-}))
+}));
 app.options('*', cors())
 
 initializeSocket(server)
