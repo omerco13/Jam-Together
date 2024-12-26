@@ -26,7 +26,7 @@ const JoinRoomPage = () => {
             return;
         }
 
-        const response = await fetch(`http://localhost:3000/api/rooms/${selectedRoom}/join`, {
+        const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms/${selectedRoom}/join`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, instrument }),
