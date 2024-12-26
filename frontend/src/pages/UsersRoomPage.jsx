@@ -14,7 +14,7 @@ const UsersRoomPage = () => {
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
-    const response = await fetch(`http://localhost:3000/api/rooms/${roomCode}`);
+    const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms/${roomCode}`);
     const data = await response.json();
     setRoomDetails(data);
     }
