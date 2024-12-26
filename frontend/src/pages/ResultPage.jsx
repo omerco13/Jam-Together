@@ -12,7 +12,7 @@ const ResultPage = () => {
         const fetchSongs = async () => {
             
             const query = new URLSearchParams(searchQuery).toString();
-            const response = await fetch(`https://jam-together-backend.onrender.com/api/songs?${query}`)
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/songs?${query}`)
             const data = await response.json()
             setSearchResults(data)
             

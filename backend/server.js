@@ -10,10 +10,7 @@ const cors = require('cors')
 const app = express()
 const PORT = process.env.REACT_APP_API_URL || 3000
 const server = http.createServer(app)
-// const allowedOrigins = [
-//     'http://localhost:5173',
-//     'https://your-production-frontend-url.com' 
-// ];
+
 
 app.use(cors({
     origin: '*',
@@ -30,6 +27,6 @@ app.use('/api/rooms', roomRoutes)
 
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })

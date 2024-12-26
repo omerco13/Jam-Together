@@ -15,7 +15,7 @@ const CreateRoomPage = () => {
             return;
         }
 
-        const BASE_URL = process.env.REACT_APP_API_URL || 'https://jam-together-backend.onrender.com'
+        const BASE_URL = import.meta.env.VITE_API_URL
         const response = await fetch(`${BASE_URL}/api/rooms`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

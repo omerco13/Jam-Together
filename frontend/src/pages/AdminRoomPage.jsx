@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
-const socket = io('https://jam-together-backend.onrender.com')
+const socket = io(`${import.meta.env.VITE_API_URL}`)
 
 const AdminRoomPage = () => {
     const { roomCode } = useParams()
@@ -16,13 +16,21 @@ const AdminRoomPage = () => {
     
     useEffect(() => {
         const fetchRoomDetails = async () => {
-            const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms/${roomCode}`)
-            const data = await response.json()
-            setRoomDetails(data)
-            
-        };
+            const response = await fetch(
+              `${import.meta.env.VITE_API_URL}/api/rooms/${roomCode}`
+            );
+            const data = await response.json();
+            setRoomDetails(data);
+            // Check if the admin is already in the room
+            const isAdminInRoom = data.participants.some(
+              (participant) => participant.name === "Admin"
+            );
+      
+            if (!isAdminInRoom) {
+              socket.emit("joinRoom", { roomId: roomCode, user: { name: "Admin" } });
+            }
+          };
         fetchRoomDetails()
-        socket.emit('joinRoom', { roomId: roomCode, user: { name: 'Admin' } })
 
         socket.on('userJoined', ({ participants }) => {
             setRoomDetails((prevDetails) => ({
