@@ -13,17 +13,20 @@ const AdminRoomPage = () => {
     const [isLive, setIsLive] = useState(false)
     const navigate = useNavigate()
     
-    
-    
     useEffect(() => {
         const fetchRoomDetails = async () => {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomCode}`)
             const data = await response.json()
             setRoomDetails(data);
-          }
+          };
         fetchRoomDetails()
 
-        
+        socket.on('userJoined', ({ participants }) => {
+            setRoomDetails((prevDetails) => ({
+                ...prevDetails,
+                participants,
+            }))
+        })
 
         socket.on("userLeft", ({ participants }) => {
             setRoomDetails((prevDetails) => ({
@@ -62,17 +65,6 @@ const AdminRoomPage = () => {
         setSelectedSong(null)
     }
 
-    const handleLeaveRoom = async (roomId) => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}/close`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      socket.emit('leaveRoom', { roomId: roomCode })
-      setRoomDetails(null)
-      navigate('/');
-    
-    }
-
 
     const handleSearch = async () => {
         
@@ -83,7 +75,7 @@ const AdminRoomPage = () => {
     return (
         <div className="page-container">
       {isLive ? (
-        <div className="live-session">
+        <div className="page-container">
           <h1 className="page-heading text-white">Live Session</h1>
           {selectedSong && (
             <>
@@ -127,7 +119,7 @@ const AdminRoomPage = () => {
                     </button>
                     <button
                         className="primary-button mt-6"
-                        onClick={handleLeaveRoom}
+                        onClick={() => navigate('/')}
                     >
                         Close The Room
                     </button>
