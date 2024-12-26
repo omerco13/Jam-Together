@@ -11,8 +11,7 @@ const JoinRoomPage = () => {
 
     useEffect(() => {
         const fetchRooms = async () => {
-            const BASE_URL = process.env.REACT_APP_API_URL || 'https://jam-together-backend.onrender.com'
-            const response = await fetch(`${BASE_URL}/api/rooms`)
+            const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms//api/rooms`)
             const data = await response.json();
             setRooms(data)
         }
@@ -27,7 +26,7 @@ const JoinRoomPage = () => {
             return;
         }
 
-        const response = await fetch(`${BASE_URL}/api/rooms/${selectedRoom}/join`, {
+        const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms/${selectedRoom}/join`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, instrument }),
