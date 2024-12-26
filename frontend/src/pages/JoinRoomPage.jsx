@@ -11,7 +11,7 @@ const JoinRoomPage = () => {
 
     useEffect(() => {
         const fetchRooms = async () => {
-            const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms//api/rooms`)
+            const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms`)
             const data = await response.json();
             setRooms(data)
         }

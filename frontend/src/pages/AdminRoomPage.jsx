@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { io } from 'socket.io-client'
 
-const socket = io('http://localhost:3000')
+const socket = io('https://jam-together-backend.onrender.com')
 
 const AdminRoomPage = () => {
     const { roomCode } = useParams()
@@ -16,7 +16,7 @@ const AdminRoomPage = () => {
     
     useEffect(() => {
         const fetchRoomDetails = async () => {
-            const response = await fetch(`https://jam-together-backend.onrender.com/${roomCode}`)
+            const response = await fetch(`https://jam-together-backend.onrender.com/api/rooms/${roomCode}`)
             const data = await response.json()
             setRoomDetails(data)
             
