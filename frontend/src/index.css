@@ -4,7 +4,7 @@
 
 /* General page layout */
 .page-container {
-  @apply flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800;
+  @apply flex flex-col items-center justify-center min-h-screen bg-white text-gray-800;
 }
 
 /* Headings */

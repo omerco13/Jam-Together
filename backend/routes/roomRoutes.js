@@ -25,6 +25,25 @@ router.post('/:id/join', (req, res) => {
     });
 });
 
+router.post('/api/rooms/:roomId/close', async (req, res) => {
+      const { roomId } = req.params;
+      
+      await Room.findByIdAndDelete(roomId)
+      io.in(roomId).emit('roomClosed')
+      
+      const roomSockets = await io.in(roomId).allSockets();
+    roomSockets.forEach(socketId => {
+      const socket = io.sockets.sockets.get(socketId);
+      if (socket) {
+        socket.leave(roomId);
+      }
+      });
+      
+      res.status(200).json({ message: 'Room closed successfully' });
+    
+  });
+
+
 router.get('/:id', (req, res) => {
     const { id } = req.params;
     const room = rooms.find((room) => room.id === id)

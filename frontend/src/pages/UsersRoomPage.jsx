@@ -21,22 +21,18 @@ const UsersRoomPage = () => {
 
     fetchRoomDetails();
 
-    socket.emit("joinRoom", { roomId: roomCode, user: { name: "User" } });
-
-    socket.on("userJoined", ({ participants }) => {
-      setRoomDetails((prevDetails) => ({
-        ...prevDetails,
-        participants,
-      }))
-    })
-
     socket.on("userLeft", ({ participants }) => {
         setRoomDetails((prevDetails) => ({
           ...prevDetails,
           participants,
         }))
       })
-      
+    
+    socket.on('roomClosed', () => {
+      alert('The room has been closed by the admin');
+      socket.emit('leaveRoom', { roomId: roomCode });
+      navigate('/');
+    })
 
     socket.on("songSelected", ({ song }) => {
       setCurrentSong(`Current Song: ${song}`)
@@ -58,6 +54,7 @@ const UsersRoomPage = () => {
       socket.off("songSelected")
       socket.off('startLiveSession')
       socket.off('endSession')
+      socket.off('roomClosed')
     };
   }, [roomCode]);
 
@@ -87,7 +84,7 @@ const UsersRoomPage = () => {
               <ul className="participants-list">
                 {roomDetails.participants.map((participant, index) => (
                   <li key={index}>
-                    {participant.name} ({participant.instrument})
+                    {participant.name} - {participant.instrument}
                   </li>
                 ))}
               </ul>

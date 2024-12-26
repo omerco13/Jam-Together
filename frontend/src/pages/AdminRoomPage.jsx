@@ -14,30 +14,16 @@ const AdminRoomPage = () => {
     const navigate = useNavigate()
     
     
+    
     useEffect(() => {
         const fetchRoomDetails = async () => {
-            const response = await fetch(
-              `${import.meta.env.VITE_API_URL}/api/rooms/${roomCode}`
-            );
-            const data = await response.json();
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomCode}`)
+            const data = await response.json()
             setRoomDetails(data);
-            // Check if the admin is already in the room
-            const isAdminInRoom = data.participants.some(
-              (participant) => participant.name === "Admin"
-            );
-      
-            if (!isAdminInRoom) {
-              socket.emit("joinRoom", { roomId: roomCode, user: { name: "Admin" } });
-            }
-          };
+          }
         fetchRoomDetails()
 
-        socket.on('userJoined', ({ participants }) => {
-            setRoomDetails((prevDetails) => ({
-                ...prevDetails,
-                participants,
-            }))
-        })
+        
 
         socket.on("userLeft", ({ participants }) => {
             setRoomDetails((prevDetails) => ({
@@ -74,6 +60,17 @@ const AdminRoomPage = () => {
         socket.emit('endSession', { roomId: roomCode })
         setIsLive(false)
         setSelectedSong(null)
+    }
+
+    const handleLeaveRoom = async (roomId) => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}/close`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      socket.emit('leaveRoom', { roomId: roomCode })
+      setRoomDetails(null)
+      navigate('/');
+    
     }
 
 
@@ -130,7 +127,7 @@ const AdminRoomPage = () => {
                     </button>
                     <button
                         className="primary-button mt-6"
-                        onClick={() => navigate('/')}
+                        onClick={handleLeaveRoom}
                     >
                         Close The Room
                     </button>

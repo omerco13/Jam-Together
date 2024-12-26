@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { io } from 'socket.io-client'
 
 
 const JoinRoomPage = () => {
@@ -8,14 +9,31 @@ const JoinRoomPage = () => {
     const [rooms, setRooms] = useState([])
     const [selectedRoom, setSelectedRoom] = useState('')
     const navigate = useNavigate()
+    const socketRef = useRef(null)
+
 
     useEffect(() => {
-        const fetchRooms = async () => {
-            const response = await fetch(`import.meta.env.VITE_API_URL/api/rooms`)
-            const data = await response.json();
-            setRooms(data)
+      socketRef.current = io(import.meta.env.VITE_SOCKET_URL)
+
+
+      const fetchRooms = async () => {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rooms`);
+        const data = await response.json();
+        setRooms(data);
+
+        data.forEach((room) => {
+          const isUserInRoom = room.participants.some(
+            (participant) => participant.name === "User"
+          );
+        })
+      }
+  
+      fetchRooms()
+      return () => {
+        if (socketRef.current) {
+          socketRef.current.disconnect()
         }
-        fetchRooms()
+      }
     }, [])
 
     const handleSubmit = async (e) => {
@@ -33,11 +51,9 @@ const JoinRoomPage = () => {
         });
 
         const data = await response.json();
-        navigate(`/user-room/${selectedRoom}`);
+        navigate(`/user-room/${selectedRoom}`)
         
     }
-
-
 
     return (
         <div className="page-container">
@@ -82,7 +98,7 @@ const JoinRoomPage = () => {
                 <option value="" disabled>Select a room</option>
                 {rooms.map((room) => (
                   <option key={room.id} value={room.id}>
-                    {room.id} (Admin: {room.admin})
+                    {room.id}
                   </option>
                 ))}
               </select>
