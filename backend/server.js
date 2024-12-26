@@ -10,13 +10,13 @@ const cors = require('cors')
 const app = express()
 const PORT = process.env.REACT_APP_API_URL || 3000
 const server = http.createServer(app)
-const allowedOrigins = [
-    'http://localhost:5173',  // Development frontend
-    'https://your-production-frontend-url.com'  // Replace with your production URL
-];
+// const allowedOrigins = [
+//     'http://localhost:5173',
+//     'https://your-production-frontend-url.com' 
+// ];
 
 app.use(cors({
-    origin: allowedOrigins,
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
 }));
