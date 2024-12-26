@@ -12,7 +12,7 @@ const ResultPage = () => {
         const fetchSongs = async () => {
             
             const query = new URLSearchParams(searchQuery).toString();
-            const response = await fetch(`http://localhost:3000/api/songs?${query}`)
+            const response = await fetch(`https://jam-together-backend.onrender.com/api/songs?${query}`)
             const data = await response.json()
             setSearchResults(data)
             
